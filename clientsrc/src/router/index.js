@@ -20,6 +20,15 @@ const routes = [
     component: Profile,
     beforeEnter: authGuard,
   },
+
+  {
+    path: "/bug/:bugId",
+    name: "Bug",
+    component: function () {
+      // @ts-ignore
+      return import(/* webpackChunkName: "Bug" */ '../components/BugDetails.vue')
+    }
+  }
 ];
 
 const router = new VueRouter({

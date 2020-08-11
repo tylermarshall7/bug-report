@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 let Schema = mongoose.Schema
 
-const bug = new Schema({
+const Bug = new Schema({
   closed: { type: Boolean, required: true, default: false },
   description: { type: String, required: true },
   title: { type: String, required: true },

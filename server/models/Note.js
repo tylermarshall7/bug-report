@@ -9,3 +9,5 @@ const Note = new Schema({
   flagged: { type: String, enum: ["pending", "completed", "rejected"] },
   creatorEmail: { type: String, required: true }
 }, { timestamps: true, toJSON: { virtuals: true } })
+
+export default Note

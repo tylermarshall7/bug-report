@@ -3,16 +3,21 @@ import { BadRequest } from "../utils/Errors"
 
 
 class NotesService {
-  async getAll(userEmail) {
-    return await dbContext.Notes.find({ creatorEmail: userEmail }).populate("creator", "name picture")
-  }
 
-  async getById(id, userEmail) {
-    let data = await dbContext.Notes.findOne({ _id: id, creatorEmail: userEmail })
+  async getNotesByBugId(id, userEmail) {
+    let data = await dbContext.Notes.find({ bugId: id, creatorEmail: userEmail })
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this board")
     }
     return data
+  }
+
+  async getById(id) {
+    let value = await dbContext.Notes.findById(id);
+    if (!value) {
+      throw new BadRequest("Invalid Id");
+    }
+    return value;
   }
 
   async create(rawData) {

@@ -3,16 +3,8 @@ import { BadRequest } from "../utils/Errors"
 
 
 class BugsService {
-  async getAll(userEmail) {
-    return await dbContext.Bugs.find({ creatorEmail: userEmail }).populate("creator", "name picture")
-  }
-
-  async getById(id, userEmail) {
-    let data = await dbContext.Bugs.findOne({ _id: id, creatorEmail: userEmail })
-    if (!data) {
-      throw new BadRequest("Invalid ID or you do not own this board")
-    }
-    return data
+  async getAll() {
+    return await dbContext.Bugs.find()
   }
 
   async create(rawData) {
@@ -31,7 +23,7 @@ class BugsService {
   async delete(id, userEmail) {
     let data = await dbContext.Bugs.findOneAndRemove({ _id: id, creatorEmail: userEmail });
     if (!data) {
-      throw new BadRequest("Invalid ID or you do not own this board");
+      throw new BadRequest("Invalid ID or you do not own this bug");
     }
   }
 

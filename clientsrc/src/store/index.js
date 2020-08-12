@@ -69,11 +69,11 @@ export default new Vuex.Store({
       }
     },
 
-    async addComment({ commit, dispatch }, payload) {
+    async addNote({ commit, dispatch }, payload) {
       try {
         let res = await api.post("notes", payload)
         dispatch("getNotesByBugId", payload.bugId)
-        console.log('added comment', payload)
+        console.log('added note', payload)
       } catch (error) {
         console.error(error)
       }
@@ -85,16 +85,16 @@ export default new Vuex.Store({
       dispatch("getNotesByBugId", bugId)
     },
 
-    setCurrentComment({ commit, dispatch, state }, commentId) {
-      let currentComment = this.state.notes.find(comment => commentId == comment.id)
-      commit("setCurrentComment", currentComment)
+    setCurrentNote({ commit, dispatch, state }, noteId) {
+      let currentNote = this.state.notes.find(note => noteId == note.id)
+      commit("setCurrentNote", currentNote)
     },
 
-    async getCommentsByBug({ commit, dispatch, state }, bugId) {
+    async getNotesByBugId({ commit, dispatch, state }, bugId) {
       try {
         this.state.notes = []
         let notes = await api.get("bugs/" + bugId + "/notes")
-        commit("setComments", notes.data)
+        commit("setNotes", notes.data)
       } catch (error) {
         console.error(error)
       }
@@ -106,9 +106,9 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    async deleteComment({ commit, dispatch, state }, commentId) {
+    async deleteNote({ commit, dispatch, state }, noteId) {
       try {
-        await api.delete("notes/" + commentId)
+        await api.delete("notes/" + noteId)
         dispatch("getNotesByBugId", this.state.bugDetails.id)
       } catch (error) {
         console.error(error)

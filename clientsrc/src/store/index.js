@@ -62,7 +62,7 @@ export default new Vuex.Store({
       try {
         let res = await api.post("bugs", payload)
         dispatch("getAllBugs")
-        router.push({ name: 'Bug', params: { bugId: res.data._id } })
+        router.push({ name: 'BugDetails', params: { bugId: res.data._id } })
 
       } catch (error) {
         console.error(error)
@@ -79,9 +79,9 @@ export default new Vuex.Store({
       }
     },
 
-    setBugDetails({ commit, dispatch, state }, bugId) {
-      let currentPost = this.state.bugs.find(bug => bugId == bug.id);
-      commit("setBugDetails", currentPost)
+    async setBugDetails({ commit, dispatch, state }, bugId) {
+      let res = await api.get("bugs/" + bugId)
+      commit("setBugDetails", res.data)
       dispatch("getNotesByBugId", bugId)
     },
 

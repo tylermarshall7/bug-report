@@ -3,6 +3,9 @@ import { BadRequest } from "../utils/Errors"
 
 
 class BugsService {
+  async getBug(id) {
+      return await dbContext.Bugs.findById(id)
+  }
   async getAll() {
     return await dbContext.Bugs.find()
   }

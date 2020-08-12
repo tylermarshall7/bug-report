@@ -5,7 +5,7 @@ import { BadRequest } from "../utils/Errors"
 class NotesService {
 
   async getNotesByBugId(id, userEmail) {
-    let data = await dbContext.Notes.find({ bugId: id, creatorEmail: userEmail })
+    let data = await dbContext.Notes.find({ bug: id, creatorEmail: userEmail })
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this board")
     }

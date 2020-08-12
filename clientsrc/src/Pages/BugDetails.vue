@@ -10,7 +10,7 @@
         <h5>{{bugDetails.name}}</h5>
         <p> {{bugDetails.description}}</p>
         <h5> Notes </h5>
-        <notes v-for="noteItem in notes" :notes="noteItem" :key="noteItem.id"></notes>
+        <note v-for="noteItem in notes" :note="noteItem" :key="noteItem.id"></note>
 
         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#noteModal">
             Add Note
@@ -36,7 +36,7 @@
                             <div class="input-group">
 
                                 <input type="text" class="form-control" placeholder="enter note..."
-                                    v-model="newNote.notes">
+                                    v-model="newNote.content">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -127,10 +127,9 @@
     import Note from "../components/Note"
     export default {
         name: 'bugDetails',
-        props: ["notes", "noteItem"],
         data() {
             return {
-                newnote: {},
+                newNote: {},
                 editBug: {},
                 editNote: {},
             }
@@ -149,8 +148,8 @@
         methods: {
             addNote(newNote) {
                 this.$store.dispatch("addNote", {
-                    content: this.newNote.note,
-                    bugId: this.$route.params.bugId,
+                    content: this.newNote.content,
+                    bug: this.$route.params.bugId,
                     creatorEmail: this.$store.state.profile.email
                 })
                 $("#noteModal").modal("hide");

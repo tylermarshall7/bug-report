@@ -12,6 +12,7 @@
       <bug v-for="bugItem in bugs" :bug="bugItem" :key="bugItem.id"></bug>
     </div>
 
+<button class="btn" data-target="#bugModal" data-toggle="modal">create bug</button>
     <!-- Modal -->
     <form @submit.prevent="addBug(newBug)">
       <div class="modal fade" id="bugModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -50,6 +51,8 @@
       </div>
     </form>
   </div>
+
+
 </template>
 
 <script>

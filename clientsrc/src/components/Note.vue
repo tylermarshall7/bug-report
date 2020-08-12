@@ -1,4 +1,9 @@
 <template>
+<div> 
+    <h1>{{note.content}}</h1>
+    <button class="button" @click="deleteNote()">delete</button>
+</div>
+
 </template>
 
 
@@ -12,7 +17,7 @@
         },
         computed: {},
         methods: {
-            deleteNote(noteId) {
+            deleteNote() {
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "this note will be deleted",
@@ -23,9 +28,10 @@
                     confirmButtonText: 'delete!'
                 }).then((result) => {
                     if (result.value) {
+                        this.$store.dispatch("deleteNote", this.note.id)
                         Swal.fire(
                             'Deleted!',
-                        )
+                        ) 
                     }
                 })
             },

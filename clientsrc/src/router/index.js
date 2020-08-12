@@ -29,7 +29,8 @@ const routes = [
     component: function () {
       // @ts-ignore
       return import(/* webpackChunkName: "Bug" */ '../Pages/BugDetails.vue')
-    }
+    },
+    beforeEnter: authGuard
   }
 ];
 

@@ -2,6 +2,7 @@
     <div>
 
         <div v-show="!bug.closed" class="Bug row" @click="viewBug(bug.id)">
+
             <div class="col-3 bg-white border">
                 <h5>{{bug.title}}</h5>
             </div>
@@ -12,8 +13,9 @@
                 <h5>Open</h5>
             </div>
             <div class="col-3 bg-white text border">
-                <h5>{{date}}</h5>
+                <h5>{{new Date(bug.updatedAt).toLocaleString()}}</h5>
             </div>
+
         </div>
 
 

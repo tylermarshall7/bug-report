@@ -1,15 +1,14 @@
 <template>
-    <div class="currentBug container bg-secondary mt-5">
+    <div class="bugDetails container bg-secondary">
         <div class="row">
-            <h1 class="col-7">{{currentBug.title}} </h1>
-            <button v-show="!currentBug.closed" type="button" class="m-2 col-2 btn btn-info" data-toggle="modal"
+            <h1 class="col-7">{{bugDetails.title}} </h1>
+            <button v-show="!bugDetails.closed" type="button" class="btn btn-info" data-toggle="modal"
                 data-target="#editBugModal">Edit</button>
-            <button v-show="!currentBug.closed" class="m-2  col-2 btn btn-warning"
-                @click="closeBug(currentBug.id)">Close</button>
-            <div v-show="currentBug.closed" class="m-2 ml-5 col-2  btn btn-primary">Bug is Closed</div>
+            <button v-show="!bugDetails.closed" class="btn" @click="closeBug(bugDetails.id)">Close</button>
+            <div v-show="bugDetails.closed" class="col-2  btn btn-primary">Bug is Closed</div>
         </div>
-        <h5>{{currentBug.name}}</h5>
-        <p> {{currentBug.description}}</p>
+        <h5>{{bugDetails.name}}</h5>
+        <p> {{bugDetails.description}}</p>
         <h5> Notes </h5>
         <notes v-for="noteItem in notes" :notes="noteItem" :key="noteItem.id"></notes>
 
@@ -34,7 +33,7 @@
                         </div>
                         <div class="modal-body">
                             Note
-                            <div class="input-group mb-3">
+                            <div class="input-group">
 
                                 <input type="text" class="form-control" placeholder="enter note..."
                                     v-model="newNote.notes">
@@ -42,7 +41,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add Comment</button>
+                            <button type="submit" class="btn btn-primary">Add Note</button>
                         </div>
                     </div>
                 </div>
@@ -63,13 +62,13 @@
                         </div>
                         <div class="modal-body">
                             Your Name
-                            <div class="input-group mb-3">
+                            <div class="input-group">
 
                                 <input type="text" class="form-control" placeholder="enter your Name..."
                                     v-model="editBug.name">
                             </div>
                             Title
-                            <div class="input-group mb-3">
+                            <div class="input-group">
 
                                 <input type="text" class="form-control" placeholder="enter Title..."
                                     v-model="editBug.title">
@@ -102,7 +101,7 @@
                     </div>
                     <div class="modal-body">
                         Note
-                        <div class="input-group mb-3">
+                        <div class="input-group">
 
                             <input type="text" class="form-control" placeholder="enter Note..."
                                 v-model="editNote.content">
@@ -127,7 +126,7 @@
 <script>
     import Note from "../components/Note"
     export default {
-        name: 'currentBug',
+        name: 'bugDetails',
         props: ["notes", "noteItem"],
         data() {
             return {
@@ -137,11 +136,11 @@
             }
         },
         mounted() {
-            this.$store.dispatch("setCurrentBug", this.$route.params.bugId)
+            this.$store.dispatch("setBugDetails", this.$route.params.bugId)
         },
         computed: {
-            currentBug() {
-                return this.$store.state.currentBug;
+            bugDetails() {
+                return this.$store.state.bugDetails;
             },
             notes() {
                 return this.$store.state.notes;
@@ -200,18 +199,17 @@
                 })
             },
 
-            commentToEdit(editComment) {
-                this.$store.dispatch('editComment', {
-                    content: this.editComment.content,
+            noteToEdit(editNote) {
+                this.$store.dispatch('editNote', {
+                    content: this.editNote.content,
                     bugId: this.$route.params.bugId,
-                    //*How to access comment ID for this function? 
-                    id: this.$store.state.currentComment.id
+                    id: this.$store.state.currentNote.id
                 })
             },
 
         },
         components: {
-            Comment,
+            Note,
         }
     }
 </script>

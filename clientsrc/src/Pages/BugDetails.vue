@@ -182,8 +182,6 @@
                         })
                         this.$router.push({ name: "Home", path: "/" });
                         swal.fire(
-                            'Completed!',
-                            'Your bug is completed. ',
                             'success'
                         )
                     } else if (
@@ -191,9 +189,7 @@
                         result.dismiss === Swal.DismissReason.cancel
                     ) {
                         swal.fire(
-                            'Cancelled',
-                            'Your bug lives on!',
-                            'error'
+                            'Cancelled'
                         )
                     }
                 })
